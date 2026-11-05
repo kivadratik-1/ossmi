@@ -1,19 +1,19 @@
 # OSSMI — Open Source Small Mount Interface
 
-**An open mechanical interface for small devices.**  
+**An open mechanical interface for mounting and arranging small devices, modules, components, and everyday objects.**  
 **Small devices. One open interface.**  
 **The interface is open. The ecosystem is a market.**
 
 | Document | Value |
 |---|---|
 | Identifier | `OSSMI-STD-0001` |
-| Version | **0.1.1 — Public Draft (revised)** |
-| Date | 2026-11-04 |
+| Version | **0.1.3 — Public Draft (expanded applications)** |
+| Date | 2026-11-05 |
 | Status | Proposal / prototype-backed; **not yet a ratified standard; reference hardware licensing policy adopted** |
 | Project | Open Source Small Mount Interface (OSSMI) |
-| Scope | Passive, modular attachment of small devices and peripherals |
+| Scope | Passive mechanical connection, mounting and arrangement of small devices, components and everyday objects |
 | First reference application | Rugged modular tablet frame (Lenovo Y700) |
-| Intended repository | `ossmi` (proposed; account/organization TBD) |
+| Repository | <https://github.com/kivadratik-1/ossmi> |
 | Governance / licensing | **CERN-OHL-W-2.0 adopted for OSSMI reference hardware sources**, subject to explicit file notices; see §12 |
 
 > **We standardized how small devices exchange data. We never standardized how they stay together.**
@@ -26,19 +26,19 @@
 
 Modern electronics have learned to talk to one another. USB carries data. USB-C provides a common physical connection for many devices. Wireless protocols make communication less dependent on cables. Yet the mechanical relationship between small devices remains an improvised problem.
 
-An SSD is attached to a tablet with tape. A card reader hangs from its cable. A modem rides in a pocket. A sensor needs a new enclosure, a new bracket, and a new screw pattern. A battery pack arrives with yet another incompatible holder. The same everyday problem is re-solved, by thousands of people, thousands of times.
+An SSD is attached to a tablet with tape. A card reader hangs from its cable. A modem rides in a pocket. A sensor needs a new enclosure, a new bracket, and a new screw pattern. A TV streaming box or external power brick dangles behind a display. A portable solar panel and power bank need an improvised way to stay together. A small sensor or telemetry unit needs yet another custom mount on a DIY drone or robot. The same everyday problem is re-solved, by thousands of people, thousands of times.
 
 We have made electronic devices modular in **information**, but not sufficiently modular in **space**.
 
 OSSMI exists to close that gap.
 
-We propose a minimal, documented mechanical interface for lightweight portable electronics: something makers can print, designers can integrate, companies can adopt, and ordinary users can adapt without joining a closed accessory ecosystem.
+We propose a minimal, documented mechanical interface for mounting, connecting and arranging small devices, components and everyday objects. Electronics are the starting point, **not the boundary of the idea**. Makers should be able to print it, designers to integrate it, companies to adopt it, and ordinary users to adapt it without joining a closed accessory ecosystem.
 
 We do not need a new proprietary connector for every small device. We need a common foundation on which many different products can coexist.
 
 ## 2. The proposition
 
-**OSSMI — Open Source Small Mount Interface** is a proposal for a small-scale, open, passive mechanical mounting convention.
+**OSSMI — Open Source Small Mount Interface** is a proposal for a small-scale, open, passive mechanical interface. It defines the **mating relationship between parts**, not the overall geometry, electronics, purpose, or load rating of products connected through it.
 
 Its first implementation combines:
 
@@ -52,7 +52,7 @@ Its first implementation combines:
 
 The system is meant to be useful at its simplest. A maker should be able to attach a low-profile studded plate to an existing card reader and use the same mounting surface as someone who designs a complete parametric enclosure.
 
-OSSMI does not require the user to purchase a unique vendor-specific latch.
+OSSMI does not require the user to purchase a unique vendor-specific latch. It should work both for **device-to-accessory** arrangements and, through suitable adapters or brackets, for **device-to-device** and **device-to-surface** mounting. A custom bracket can have whatever length or shape a maker needs; only its OSSMI mating features need follow the interface.
 
 ## 3. What we believe
 
@@ -78,7 +78,7 @@ An STL is useful for printing. A parametric model is useful for learning, adapti
 
 ### 3.6 The standard must be bigger than its first product
 
-The original tablet frame is a proof of concept, not the definition of OSSMI. The same interface should be adaptable to Raspberry Pi enclosures, microcontroller cases, phone cases, compact tablet covers, laptop mounting pads, field instruments, and peripherals not yet imagined.
+The original tablet frame is a proof of concept, not the definition of OSSMI. The same interface should be adaptable to Raspberry Pi enclosures, microcontroller cases, phone cases, compact tablet covers, laptop mounting pads, TV accessory mounts, desktop equipment, robotics, UAV research modules, portable solar equipment and peripherals not yet imagined. A mounting surface can be part of a device, an enclosure, an adhesive plate, a bracket or a standalone carrier.
 
 ### 3.7 Claims must follow measurements
 
@@ -157,6 +157,38 @@ This charter does not promise a market, buyers, investment returns, certificatio
 
 ---
 
+## 4B. One connection, many arrangements (non-normative vision)
+
+The smallest useful OSSMI part may be an adhesive-backed receiving patch, a printable studded plate or an adapter between two otherwise unrelated objects. The standard does not need to prescribe the bracket between those ends.
+
+### 4B.1 Connection patterns
+
+| Pattern | Example | What OSSMI standardizes |
+|---|---|---|
+| **Device → accessory** | Tablet → removable card reader or SSD | The mating geometry, not the peripheral |
+| **Device → device** | Portable solar panel → power bank through an adapter | The interfaces on the joining adapter or carrier, not the charging circuit |
+| **Device → surface** | TV → streaming box, external power supply or cable organizer | The interface between the mounted object and the mounting patch or bracket |
+| **Device → bracket → device** | Tablet → arm → controller; robot → bracket → sensor | Repeatable OSSMI ends; bracket shape, length and stiffness remain application-specific |
+| **Device → enclosure / carrier** | DIY drone frame → removable sensor enclosure; 3D printer → camera mount | The docking interface, not the host machine's performance or safety certification |
+
+**The interface connects. The surrounding product decides what the assembly can safely do.**
+
+### 4B.2 Illustrative application families
+
+- **Home and desk:** streaming boxes and small external power supplies behind TVs or monitors; USB hubs, cables and compact electronics under desks. Keep ventilation, service access, electrical insulation and cable strain relief unobstructed.
+- **Mobile and photographic rigs:** phones, tablets, SSDs, readers, modems, controllers and power banks, with printable or ready-made attachment patches. Magnetic-system adapters may bridge other ecosystems rather than replace them.
+- **Off-grid and portable solar:** lightweight portable or folding solar panels, compatible power banks, charge controllers and cable holders. The mechanical link does not imply electrical compatibility; charging regulation, battery temperatures, panel flex and sunlight exposure require independent design.
+- **Robotics and UAV prototyping:** modular sensors, GPS and telemetry housings, cameras, small payload enclosures and ground-test fixtures. OSSMI-Q may suit bench configuration and noncritical modules; airborne use needs separately engineered and validated retention, typically with a positive mechanical fastener or secondary restraint.
+- **Maker tools and 3D printers:** camera arms, lights, switches, tool holders, filament accessories and auxiliary sensors mounted to custom brackets. Never obstruct moving axes, cooling or emergency controls.
+
+These are **potential applications**, not claims that such products have been built, tested, certified or commercialized by the OSSMI project.
+
+### 4B.3 Quick and secured modes are choices, not promises
+
+OSSMI-Q prioritizes tool-free repositioning. OSSMI-S adds optional M3 fastening for an application that needs more deliberate retention. A captive or spring-loaded M3 screw can ease assembly and prevent screw loss, but **being spring-loaded does not itself guarantee resistance to loosening under vibration**. Joint preload, fastener locking, host material, insert strength, fatigue and actual test conditions matter. Neither mode carries a universal shock, flight, crash or load rating.
+
+OSSMI does not set the design objective of retaining every accessory during a drop or collision. Controlled disengagement may be acceptable or useful in some configurations; ordinary handling performance and safety of a specific product remain the responsibility of its designer. Aircraft-borne and moving-machine assemblies require additional, use-specific validation and must not rely on the draft interface alone.
+
 # Part II — Proposed OSSMI v0.1 Interface Specification
 
 ## 5. Status, terminology, and scope
@@ -175,10 +207,12 @@ The capitalized terms **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT**, and **
 - **M3 anchor:** an optional threaded attachment point integrated in the receiver region.
 - **Secured adapter:** an accessory adapter designed to use both OSSMI clutch alignment and an M3 fastener.
 - **Reference implementation:** an example design illustrating the specification; it is not the only valid implementation.
+- **Mounting bridge / bracket:** a freely shaped mechanical part that connects two or more OSSMI mating interfaces or adapts a device to a host surface.
+- **Host role:** the receiver-bearing side of a particular connection; one physical device may act as a host in one connection and an accessory in another through separate adapters.
 
-**In scope for v0.1:** passive placement, alignment, mechanical attachment, detachable modules, optional threaded retention, geometry documentation, reproducible test methods.
+**In scope for v0.1:** passive placement, alignment, mechanical attachment, detachable modules, optional threaded retention, adapters linking devices and surfaces, geometry documentation, reproducible test methods.
 
-**Out of scope for v0.1:** electrical or data contacts; wireless communications; cable specifications; watertightness; structural or life-safety attachment; attachment to a human body for protection; fall arrest; motorcycle/high-speed mounting; rated vibration/impact performance; medical or aircraft use.
+**Out of scope for v0.1:** electrical or data contacts; wireless communications; cable specifications; solar charge-control and battery safety; watertightness; structural or life-safety attachment; attachment to a human body for protection; fall arrest; motorcycle/high-speed mounting; rated vibration/impact performance; medical or aircraft use. UAV examples are research and prototyping concepts only, not a flight-use qualification.
 
 ## 6. Interface architecture
 
@@ -251,6 +285,12 @@ An accessory adapter SHOULD:
 
 Pre-existing construction-brick plates can serve as accessories, but material, geometry, and manufacturing variations SHOULD be tested rather than assumed interchangeable at every load.
 
+### 6.7 Adapters, bridges and multiple host roles
+
+A bracket MAY include multiple OSSMI mating zones for arranging separate objects. In each individual joint, the **receiver side remains the host** and the **stud side remains the detachable accessory or adapter** under v0.1. Combining two receiver-equipped devices requires a separately designed bridge with suitable studs at its mating ends; it does not reverse the reference convention.
+
+The OSSMI specification does not prescribe bridge shape, extension length, cable routing, overall enclosure, operating temperature or allowable loads. Those are product-level engineering decisions. A shared 8 mm pitch alone does not demonstrate that independently produced profiles fit; actual clutch geometry and documented tolerances still matter.
+
 ## 7. Optional M3 anchoring
 
 OSSMI-S adds a selective fastener without requiring every adapter to use screws.
@@ -317,6 +357,10 @@ The interface is separate from the products used to demonstrate it.
 | **OSSMI Mini Tablet** | Compact iPad mini enclosure | Concept only; device-specific model/fit TBD |
 | **OSSMI Adhesive Plate** | Add-on receiver zone for e.g. laptop covers | Concept only; laptop finish/load/thermal safety not validated |
 | **OSSMI Adapters** | Studded plates, M3-secured brackets, custom device modules | Generic family; implementations to be published |
+| **OSSMI Home / Display** | TV or monitor mounting patches for streaming boxes and small external power supplies | Concept only; thermal, electrical and adhesive fit not validated |
+| **OSSMI Solar / Field** | Portable solar-panel carrier for a power bank or controller | Concept only; charging, weather, flex and temperature suitability not validated |
+| **OSSMI Robotics / UAV** | Sensor, camera and telemetry-module brackets | Concept only; vibration and flight retention not validated |
+| **OSSMI Maker / Printer** | Removable mounts for lights, cameras or sensors on maker equipment | Concept only; moving-part and thermal clearances not validated |
 
 Illustrations and AI visualizations SHOULD be labeled **concept render** unless produced from verified engineering CAD. Claims of fit to specific iPhone, iPad, MacBook, Raspberry Pi, or Arduino models MUST be supported by dimensional and physical validation.
 
@@ -363,7 +407,10 @@ No numeric mass or load classes are defined in v0.1. Future versions MAY add loa
 
 ## 11. Safety, responsibility, and limitations
 
-- **Do not use an untested OSSMI connection for fall arrest, personal safety equipment, automotive crash restraints, moving vehicle mounts, medical devices, or overhead load-bearing installations.**
+- **Do not use an untested OSSMI connection for fall arrest, personal safety equipment, automotive crash restraints, moving vehicle mounts, flight-critical or overhead load-bearing installations, or medical devices.**
+- For UAVs and robots, an OSSMI-compatible geometry is not evidence of flight or vibration qualification. A product designer must validate positive retention, fastening, vibration, clearance and consequences of release for the intended use.
+- For solar panels and power banks, do not cover solar cells, thermal vents or batteries; assess direct-sun heat, flexible-panel bending, cable routing and proper electrical charging separately.
+- For televisions and monitors, avoid exhaust vents, hot surfaces, high-voltage sections, wall-mount fasteners and unsafe strain on power cords.
 - OSSMI-Q clutch retention may fail under impact, vibration, temperature changes, material fatigue, or cable snags.
 - Larger accessories generate torque even at small masses; test the real lever arm.
 - Avoid mounting devices in ways that obstruct ventilation or create battery overheating hazards.
@@ -500,6 +547,8 @@ The following items must not be silently treated as settled:
 - How will names, logo use, contributor licensing, and compatibility assertions be governed?
 - Which device reference models are physically tested, and which remain concept only?
 - Which third-party construction-brick geometry sources and existing standards are suitable references under their respective licenses?
+- What documented adapter geometry allows two receiver-bearing devices to be linked without reversing the host/accessory convention?
+- Which separate test profiles, if any, should be developed for stationary mounts, outdoor solar carriers and UAV/robotics applications without implying universal safety certification?
 
 ## 16. Release roadmap
 
@@ -516,6 +565,9 @@ The following items must not be silently treated as settled:
 - [ ] Measure strength and repeated connection cycles with documented fixtures.
 - [ ] Independently reproduce the interface on another printer and in another material.
 - [ ] Fabricate and test at least one second device class (e.g. Raspberry Pi housing).
+- [ ] Publish a device-to-device bridge and a device-to-surface mounting example using the same OSSMI mating geometry.
+- [ ] Build and document a stationary home/desk mount or portable solar carrier as a distinct application proof.
+- [ ] Prototype a robotics/UAV sensor bracket for non-flight or controlled laboratory validation, with explicit limits and test notes.
 - [ ] Establish OSSMI improvement proposal and compatibility versioning process.
 - [ ] Publish manufacturer participation guidance and factual compatibility-claim rules.
 - [ ] Validate a simple commercially manufacturable starter kit and collect supplier/channel feedback before committing to molds or large production.
@@ -535,6 +587,8 @@ If you print a compatible receiver, publish your settings. If you develop an ada
 **To device brands:** consider OSSMI as an optional attachment vocabulary that customers can reuse across devices.
 
 If you build a commercial product, be truthful about interoperability and the safety limits you have validated. The project should welcome profitable compatible products without confusing commercial endorsement with independent conformance.
+
+OSSMI also welcomes a maker who solves a tiny everyday problem: mounting a streaming box behind a TV, keeping a power bank with a foldable solar panel, or building a reusable sensor mount for a robot. The scale of a use case should not determine whether its contribution matters.
 
 The most meaningful milestone for OSSMI will not be a logo, a launch post, or a large number of downloads. It will be the first independently designed module, made by somebody who never contacted the original inventor, that fits a receiver made by somebody else.
 
@@ -565,8 +619,8 @@ This draft incorporates the earlier *Open Small Mount / Open Modular Tablet Rig*
 
 ## Appendix C — One-paragraph explanation for README / press
 
-**OSSMI (Open Source Small Mount Interface)** is a proposed open mechanical mounting interface for small electronics, designed to be reproduced by 3D printing, machining, or molding. It uses an 8 mm LEGO-compatible stud-and-socket grid, with receiving sockets on a host device and studded plates on removable accessories, plus optional M3 threaded securing points. Inspired by a working rugged tablet-frame prototype carrying a card reader and portable SSD, OSSMI aims to let makers and manufacturers build interoperable accessories around one reusable mechanical interface. The project welcomes independent commercial products and distribution while resisting exclusive ownership of the shared interface. OSSMI v0.1 is a draft proposal, not a certified safety or industry standard; reference hardware is designated for CERN-OHL-W-2.0, while definitive tolerance profiles remain to be published.
+**OSSMI (Open Source Small Mount Interface)** is a proposed open mechanical mounting interface for small devices, components and everyday objects, designed to be reproduced by 3D printing, machining, or molding. It uses an 8 mm LEGO-compatible stud-and-socket grid, with receiving sockets on a host device and studded plates on removable accessories, plus optional M3 threaded securing points. Inspired by a working rugged tablet-frame prototype carrying a card reader and portable SSD, OSSMI aims to let makers and manufacturers build interoperable accessories, device-to-device bridges, and device-to-surface mounts for applications ranging from photography and home electronics to portable solar rigs and robotics research around one reusable mechanical interface. The project welcomes independent commercial products and distribution while resisting exclusive ownership of the shared interface. OSSMI v0.1 is a draft proposal, not a certified safety or industry standard; reference hardware is designated for CERN-OHL-W-2.0, while definitive tolerance profiles remain to be published.
 
 ---
 
-*End of OSSMI-STD-0001, v0.1.2 (Public Draft).*
+*End of OSSMI-STD-0001, v0.1.3 (Public Draft).*
