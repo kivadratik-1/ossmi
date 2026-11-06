@@ -14,7 +14,7 @@ import argparse
 from pathlib import Path
 
 PITCH = 8.0
-EDGE_REDUCTION = 0.3
+EDGE_REDUCTION = 0.2
 BASE_THICKNESS = 0.8
 STUD_DIAMETER = 4.8
 STUD_HEIGHT = 1.8

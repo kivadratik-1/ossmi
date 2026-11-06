@@ -11,7 +11,7 @@ import argparse
 from pathlib import Path
 
 PITCH = 8.0
-EDGE_ALLOWANCE = 0.3
+EDGE_ALLOWANCE = 0.2
 HEIGHT = 3.0
 
 
@@ -31,7 +31,7 @@ width = {width:g};
 length = {length:g};
 
 skin = 1.0;            // top skin thickness
-wall = 1.2;            // perimeter wall thickness
+wall = 1.5;            // perimeter wall thickness
 tube_od = 6.51;         // initial underside tube OD, unvalidated
 tube_id = 4.4;         // illustrative tube bore, unvalidated
 
