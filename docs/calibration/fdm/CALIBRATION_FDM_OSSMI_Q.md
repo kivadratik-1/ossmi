@@ -80,12 +80,12 @@ If genuine LEGO reference elements are unavailable, use a caliper to check the c
 | Adapter stud diameter | 4.8 mm |
 | Adapter stud height above base | 1.8 mm |
 | Adapter base thickness | 0.8 mm |
-| Host internal tube outside diameter | 6.5 mm |
-| Host tube bore (through-hole) diameter | 4.8 mm |
+| Host internal tube outside diameter (current Python generator) | 6.51 mm |
+| Host tube bore (through-hole) diameter (current Python generator) | 4.4 mm |
 | Host overall thickness | 3.0 mm |
-| Nominal rectangular outline | `N × 8 − 0.3 mm` per axis |
+| Current Python generator rectangular outline | `N × 8 − 0.2 mm` per axis |
 
-These are **prototype design targets, not independently validated FDM tolerance limits**. In particular, measuring a 4.8 mm diameter does not by itself prove good frictional fit. The caliper route provides **provisional dimensional conformity**, not a verified functional PASS. When a physical LEGO reference becomes available, repeat Section 4.
+These are **current Python generator values, not independently validated FDM tolerance limits**; other ready-to-print STL variants have different receiver-tube diameters. A code change or newer model may use different values, so record the exact STL and revision. In particular, measuring a 4.8 mm diameter does not by itself prove good frictional fit. The caliper route provides **provisional dimensional conformity**, not a verified functional PASS. When a physical LEGO reference becomes available, repeat Section 4.
 
 Do not infer compliance from a single diameter: wall geometry, contact surfaces, pitch, material elasticity and layer quality affect engagement. Measure in several places and note any systematic deviation or asymmetry.
 

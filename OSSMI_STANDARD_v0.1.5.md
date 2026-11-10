@@ -273,7 +273,7 @@ The following values describe **commonly reported LEGO System-style proportions*
 
 Geometry and interfaces vary among full bricks, thin plates, tiles and specialist parts. Therefore v0.1 does **not** claim a definitive tube inner diameter, wall thickness, interference fit, clearance, or tolerance for every mating situation. Those remain subjects for reference CAD, calibrated drawings, and empirical fit testing.
 
-The first OSSMI Python prototype generators use a rectangular plate footprint of **`8 × N − 0.3 mm`** on each axis. This is a **current implementation parameter**, not a ratified interface envelope or universal tolerance requirement. The older `8 × N − 0.2 mm` approximation found in some construction-brick references should not be used as an OSSMI normative dimension. The host prototype is 3.0 mm thick; the studded adapter has a 0.8 mm base and nominal Ø4.8 × 1.8 mm studs. Generator dimensions remain subject to physical calibration.
+The first OSSMI Python prototype generators use a rectangular plate footprint of **`8 × N − 0.2 mm`** on each axis. This is a **current implementation parameter**, not a ratified interface envelope or universal tolerance requirement. The plate outline is an implementation choice and should not be confused with a normative OSSMI footprint. The host prototype is 3.0 mm thick; the studded adapter has a 0.8 mm base and nominal Ø4.8 × 1.8 mm studs. Generator dimensions remain subject to physical calibration.
 
 ### 6.5 Receiver design rules
 
@@ -543,13 +543,20 @@ ossmi/
 ├── generator/
 │   ├── ossmi_host.py              # Python → OpenSCAD receiver model
 │   └── ossmi_adapter.py           # Python → OpenSCAD studded adapter
+├── cad/examples/
+│   ├── universal-base/            # four full-size STL base variants
+│   └── lenovo_y700_gen3_case/     # printed tablet-case STL
+├── docs/calibration/fdm/
+│   ├── CALIBRATION_FDM_OSSMI_Q.md
+│   ├── CALIBRATION_FDM_OSSMI_S.md
+│   └── ossmi-base_8x6_*.stl       # calibration examples
 └── media/
-    ├── photo/                     # real prototype JPEGs
-    │   ├── ossmi-0.jpg ... ossmi-4.jpg
+    ├── photo/                     # five JPEG photos + GIF
+    │   └── ossmi-0.jpg ... ossmi-4.jpg; ossmi-5.gif
     └── video/
-        └── ossmi-vid-0.MOV
+        └── ossmi-vid-0.mp4
 
-# Candidate future folders: cad/, docs/, tests/, examples/, exports/
+# Candidate future folders: tests/, exports/
 ```
 
 The normative OSSMI geometry should stay independent of any particular model of tablet, phone, SBC, printer, or slicer.
@@ -585,7 +592,7 @@ The following items must not be silently treated as settled:
 - [x] Publish **experimental Python → OpenSCAD** host and studded-adapter generators in `generator/`.
 - [ ] Publish calibrated, **canonical** receiver and studded adapter CAD, including reference profiles, independent measurements and a stated revision.
 - [ ] Publish precise 2D dimensioned drawings and measurement conventions.
-- [ ] Publish a small multi-tolerance calibration coupon and test gauge.
+- [x] Publish experimental FDM calibration STLs and fit instructions (no certified gauge or dimensional tolerances yet).
 - [ ] Measure strength and repeated connection cycles with documented fixtures.
 - [ ] Independently reproduce the interface on another printer and in another material.
 - [ ] Fabricate and test at least one second device class (e.g. Raspberry Pi housing).
@@ -634,7 +641,7 @@ That is when an idea becomes an interface.
 This draft incorporates the earlier *Open Small Mount / Open Modular Tablet Rig* design notes and the inventor's reported prototype observations. It distinguishes observed results from proposals.
 
 - **Observed:** a 3D-printed Lenovo Y700 frame, receiver zones, mounted card reader and SSD, reported strong qualitative hold, and a revised receiving test piece integrating M3 inserts.
-- **Nominal reference geometry:** 8 mm stud pitch, approximately 4.8 mm stud diameter, 1.8 mm stud height, approximately 6.5 mm underside tube outer diameter, M3 × 0.5 thread. **Current generator parameters:** rectangular XY dimensions `8 × N − 0.3 mm`; host thickness 3.0 mm; adapter base thickness 0.8 mm. These are experimental model parameters, not ratified tolerances.
+- **Nominal reference geometry:** 8 mm stud pitch, approximately 4.8 mm stud diameter, 1.8 mm stud height, approximately 6.5 mm underside tube outer diameter, M3 × 0.5 thread. **Current generator parameters:** rectangular XY dimensions `8 × N − 0.2 mm`; host thickness 3.0 mm; adapter base thickness 0.8 mm. These are experimental model parameters, not ratified tolerances.
 - **Not yet established:** standard drawing tolerances, universal plate compatibility, mass ratings, impact resistance, rigid-material alignment/M3 gauge, equipment-case transport qualification, public transport/aviation approval, adhesive life, production economics, independent compatibility verification, and legal protection of the OSSMI name.
 
 ## Appendix B — Design constraints for any public visualizations

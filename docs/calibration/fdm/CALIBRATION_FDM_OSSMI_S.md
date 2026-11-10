@@ -2,7 +2,7 @@
 
 **Status:** Experimental maker procedure / draft for community validation  
 **Scope:** FDM-printed OSSMI-S receiving pads with M3 heat-set threaded inserts  
-**Related guide:** [FDM fit calibration using ordinary LEGO parts](FDM_CALIBRATION.md)
+**Related guide:** [FDM fit calibration using ordinary LEGO parts](CALIBRATION_FDM_OSSMI_Q.md)
 
 ## 1. Purpose and acceptance principle
 
@@ -22,12 +22,12 @@ The ordinary functional fit reference is **any undamaged, unmodified, genuine, m
 |---|---|---|
 | X/Y center pitch of the OSSMI grid | **FIXED — never adjustable** | **8.00 mm** |
 | Outside diameter of receiving tube / skirt | Adjustable for physical LEGO fit | Nominal **6.50 mm**; trial sweep **6.30–6.80 mm** |
-| Bore / heat-set insert pilot diameter | Adjustable to actual insert and plastic | Nominal **4.80 mm** in the current prototype; trial sweep **4.30–5.00 mm** |
+| Bore / heat-set insert pilot diameter | Adjustable to actual insert and plastic | **4.40 mm** in the current Python host generator; trial sweep **4.30–5.00 mm** |
 | Grid-to-plate-edge margin / outline | Adjustable within structural limits | No universal range assigned |
 
-These diameter ranges are **starting points for experiments**, not standardized tolerances or a guarantee of safety. A particular insert may require a pilot diameter *outside* the trial range; use the insert manufacturer's installation advice when available. Do not assume that all inserts sold as “M3” have the same outside diameter, length, knurl profile or recommended pilot bore.
+The current `generator/ossmi_host.py` uses fixed values in the generated OpenSCAD (`tube_od = 6.51`, `tube_id = 4.4`); the Python CLI does **not yet expose** these dimensions as user arguments. To iterate, edit the generated OpenSCAD or modify the generator deliberately, keeping `pitch = 8`. These diameter ranges are **starting points for experiments**, not standardized tolerances or a guarantee of safety. A particular insert may require a pilot diameter *outside* the trial range; use the insert manufacturer's installation advice when available. Do not assume that all inserts sold as “M3” have the same outside diameter, length, knurl profile or recommended pilot bore.
 
-**Important geometric distinction:** the existing prototype's 4.8 mm through-bore is not necessarily a safe or correct heat-set pilot for every M3 insert. If the pilot hole and open through-channel share geometry, examine whether sufficient plastic remains in the surrounding tube and whether insertion bulges its outer wall. The generator should identify these as separate parameters whenever the actual design uses separate features. Adjusting a tube outer diameter or insert pilot must **never silently alter the 8 mm center pitch**. Changing the plate edge margin moves the outline relative to the grid; it must not change grid spacing.
+**Important geometric distinction:** the current Python generator's 4.4 mm through-bore is not necessarily a safe or correct heat-set pilot for every M3 insert. If the pilot hole and open through-channel share geometry, examine whether sufficient plastic remains in the surrounding tube and whether insertion bulges its outer wall. The generator should identify these as separate parameters whenever the actual design uses separate features. Adjusting a tube outer diameter or insert pilot must **never silently alter the 8 mm center pitch**. Changing the plate edge margin moves the outline relative to the grid; it must not change grid spacing.
 
 ## 3. Basic tools and specimen
 
