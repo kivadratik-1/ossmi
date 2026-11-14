@@ -1,0 +1,12 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"script",
+	"author":	"kivadratik-1",
+	"description": {
+		"": "OSSMI Adapter Plate: parametric studded adapter plate for the OSSMI system. Source: https://github.com/kivadratik-1/ossmi"
+	},
+	"version":	"0.1.0",
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"iconFilename":	"ScriptIcon.svg"
+}

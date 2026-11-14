@@ -1,0 +1,12 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"script",
+	"author":	"kivadratik-1",
+	"description": {
+		"": "OSSMI Host Plate: parametric host (base) plate for the OSSMI system, with a recessed underside cavity, clutch tubes and through-holes. Set the number of stud positions along X and Y, top skin, wall thickness, tube OD, tube ID and edge allowance (mm). The script validates the values, builds the body and names it with its parameters, e.g. ossmi-base_6x4_1.5_6.51_4.4_0.20. Fusion port of the OpenSCAD generator; geometry is experimental, test the physical fit. Source: https://github.com/kivadratik-1/ossmi"
+	},
+	"version":	"0.1.0",
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"iconFilename":	"ScriptIcon.svg"
+}
