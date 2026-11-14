@@ -2,7 +2,11 @@ import adsk.core, adsk.fusion, traceback
 
 CMD_ID = 'ossmiAdapterPlateCmd'
 
-# Dimensions are kept in millimeters throughout the script.
+# All dimensions in this script are in millimeters.
+# The Fusion API works in centimeters internally, so every value that goes
+# into (or comes out of) the API is converted with MM (cm per mm).
+MM = 0.1
+
 PITCH = 8.0
 BASE_THICKNESS = 0.8
 STUD_OUTER_DIAMETER = 4.8
@@ -10,34 +14,34 @@ STUD_INNER_DIAMETER = 3.3
 STUD_HEIGHT = 1.8
 EDGE_REDUCTION = 0.2
 CHAMFER_SIZE = 0.2
-TOLERANCE = 1e-4
+TOLERANCE = 1e-4  # cm, used when comparing API geometry
 
 _handlers = []
 
 
-# ---------- Geometry helpers ----------
+# ---------- Geometry helpers (arguments in mm) ----------
 
 def add_rect(sketch, x0, y0, x1, y1):
     sketch.sketchCurves.sketchLines.addTwoPointRectangle(
-        adsk.core.Point3D.create(x0, y0, 0),
-        adsk.core.Point3D.create(x1, y1, 0))
+        adsk.core.Point3D.create(x0 * MM, y0 * MM, 0),
+        adsk.core.Point3D.create(x1 * MM, y1 * MM, 0))
 
 
 def add_circle(sketch, cx, cy, d):
     sketch.sketchCurves.sketchCircles.addByCenterRadius(
-        adsk.core.Point3D.create(cx, cy, 0), d / 2)
+        adsk.core.Point3D.create(cx * MM, cy * MM, 0), d * MM / 2)
 
 
 def extrude_profiles(comp, profiles, distance, op):
-    """Extrudes the specified profile collection."""
+    """Extrudes the specified profile collection. distance is in mm."""
     ext = comp.features.extrudeFeatures
     inp = ext.createInput(profiles, op)
-    inp.setDistanceExtent(False, adsk.core.ValueInput.createByReal(distance))
+    inp.setDistanceExtent(False, adsk.core.ValueInput.createByReal(distance * MM))
     return ext.add(inp)
 
 
 def extrude(comp, sketch, distance, op):
-    """Extrudes all profile curves from the sketch."""
+    """Extrudes all profile curves from the sketch. distance is in mm."""
     profiles = adsk.core.ObjectCollection.create()
     for p in sketch.profiles:
         profiles.add(p)
@@ -47,18 +51,21 @@ def extrude(comp, sketch, distance, op):
 # ---------- Parameters and name ----------
 
 def read_params(inputs):
-    """Reads values from the dialog. All lengths are stored in millimeters."""
+    """Reads values from the dialog. Lengths come back in cm and are converted to mm."""
+    def mm(input_id):
+        return inputs.itemById(input_id).value / MM
+
     return dict(
         nx=inputs.itemById('nx').value,
         ny=inputs.itemById('ny').value,
-        base=inputs.itemById('base').value,
-        stud_outer_diameter=inputs.itemById('stud_d').value,
-        stud_inner_diameter=inputs.itemById('stud_id').value,
-        stud_height=inputs.itemById('stud_h').value,
-        edge_reduction=inputs.itemById('edge').value,
+        base=mm('base'),
+        stud_outer_diameter=mm('stud_d'),
+        stud_inner_diameter=mm('stud_id'),
+        stud_height=mm('stud_h'),
+        edge_reduction=mm('edge'),
         through=inputs.itemById('through').value,
         chamfer=inputs.itemById('chamfer').value,
-        chamfer_size=inputs.itemById('chamfer_d').value,
+        chamfer_size=mm('chamfer_d'),
     )
 
 
@@ -104,13 +111,15 @@ def make_name(p):
 # ---------- Construction ----------
 
 def find_stud_top_edges(body, stud_outer_diameter, top_z):
-    """Outer end edges of the studs: circles of diameter stud_outer_diameter at height top_z."""
+    """Outer end edges of the studs. Arguments in mm; API geometry is in cm."""
     edges = adsk.core.ObjectCollection.create()
+    radius_cm = stud_outer_diameter * MM / 2
+    top_z_cm = top_z * MM
     for e in body.edges:
         g = e.geometry
         if g.objectType != 'adsk::core::Circle3D':
             continue
-        if abs(g.radius - stud_outer_diameter / 2) < TOLERANCE and abs(g.center.z - top_z) < TOLERANCE:
+        if abs(g.radius - radius_cm) < TOLERANCE and abs(g.center.z - top_z_cm) < TOLERANCE:
             edges.add(e)
     return edges
 
@@ -170,7 +179,7 @@ def build_plate(p):
             chamfers = root.features.chamferFeatures
             cin = chamfers.createInput2()
             cin.chamferEdgeSets.addEqualDistanceChamferEdgeSet(
-                edges, adsk.core.ValueInput.createByReal(p['chamfer_size']), False)
+                edges, adsk.core.ValueInput.createByReal(p['chamfer_size'] * MM), False)
             chamfers.add(cin)
 
     app.activeViewport.fit()
@@ -223,16 +232,17 @@ class CreatedHandler(adsk.core.CommandCreatedEventHandler):
             inputs = cmd.commandInputs
             VI = adsk.core.ValueInput
 
+            # Initial values are real numbers in cm, so convert from mm
             inputs.addIntegerSpinnerCommandInput('nx', 'nx (studs along X)', 1, 100, 1, 8)
             inputs.addIntegerSpinnerCommandInput('ny', 'ny (studs along Y)', 1, 100, 1, 5)
-            inputs.addValueInput('base', 'base thickness', 'mm', VI.createByReal(BASE_THICKNESS))
-            inputs.addValueInput('stud_d', 'stud outer diameter', 'mm', VI.createByReal(STUD_OUTER_DIAMETER))
-            inputs.addValueInput('stud_id', 'stud inner diameter', 'mm', VI.createByReal(STUD_INNER_DIAMETER))
-            inputs.addValueInput('stud_h', 'stud height', 'mm', VI.createByReal(STUD_HEIGHT))
-            inputs.addValueInput('edge', 'edge reduction', 'mm', VI.createByReal(EDGE_REDUCTION))
+            inputs.addValueInput('base', 'base thickness', 'mm', VI.createByReal(BASE_THICKNESS * MM))
+            inputs.addValueInput('stud_d', 'stud outer diameter', 'mm', VI.createByReal(STUD_OUTER_DIAMETER * MM))
+            inputs.addValueInput('stud_id', 'stud inner diameter', 'mm', VI.createByReal(STUD_INNER_DIAMETER * MM))
+            inputs.addValueInput('stud_h', 'stud height', 'mm', VI.createByReal(STUD_HEIGHT * MM))
+            inputs.addValueInput('edge', 'edge reduction', 'mm', VI.createByReal(EDGE_REDUCTION * MM))
             inputs.addBoolValueInput('through', 'bore through base too', True, '', False)
             inputs.addBoolValueInput('chamfer', 'chamfer stud top outer edge', True, '', True)
-            inputs.addValueInput('chamfer_d', 'chamfer size (45°)', 'mm', VI.createByReal(CHAMFER_SIZE))
+            inputs.addValueInput('chamfer_d', 'chamfer size (45°)', 'mm', VI.createByReal(CHAMFER_SIZE * MM))
 
             onValidate = ValidateHandler()
             cmd.validateInputs.add(onValidate)
