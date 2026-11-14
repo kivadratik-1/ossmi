@@ -16,6 +16,7 @@ Real prototype photos and an animated demonstration, not renders. All six media 
 | <img src="media/photo/ossmi-3.jpg" width="240" alt="OSSMI prototype photo 3"> | <img src="media/photo/ossmi-4.jpg" width="240" alt="OSSMI prototype photo 4"> | <img src="media/photo/ossmi-5.gif" width="240" alt="Animated OSSMI prototype demonstration"> |
 
 [**Watch the prototype demonstration (MP4)**](media/video/ossmi-vid-0.mp4)
+[**Watch the prototype demonstration 2**] (https://www.youtube.com/shorts/nCauEooI8Gk)
 
 ## How it works
 
