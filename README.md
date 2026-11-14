@@ -26,7 +26,7 @@ By convention, the **host carries receiving sockets** and the **removable adapte
 
 ## Get started — print your first useful OSSMI base
 
-You don't need Python or CAD software to try OSSMI. Start with the ready-to-print **universal base**, suitable for experimenting with attaching accessories to a laptop, desk or another suitable surface.
+You don't need Python or CAD software to try an OSSMI receiving base. Start with the ready-to-print **universal base**, suitable for experimenting with attaching accessories to a laptop, desk or another suitable surface.
 
 **0. Calibrate your FDM printer.** Follow your printer manufacturer's instructions to check dimensional accuracy and print quality before printing mating parts.
 
@@ -36,11 +36,45 @@ You don't need Python or CAD software to try OSSMI. Start with the ready-to-prin
 
 **3. Find your fit.** Use a normal, undamaged, genuine LEGO System brick or plate with standard studs. Test how each base engages, holds during gentle handling and releases by hand. Choose the version that fits securely **without excessive force or visible damage**. If none fits, don't force it: consult the [FDM fit guide](docs/calibration/fdm/CALIBRATION_FDM_OSSMI_Q.md) and adjust your printing process or model.
 
-**4. Put the working base to use.** The receiving base can be attached to a suitable clean surface with an appropriate **removable, surface-compatible adhesive**. For example, I attached one to the back of my MacBook so I can mount an SSD or a 4G modem using a **matching studded OSSMI accessory adapter**. The universal base alone does not attach an unmodified SSD: the accessory also needs a studded mating piece. [Generate a studded adapter](generator/ossmi_adapter.py) if you don't already have one. Check adhesive suitability, laptop finish, heat and ventilation, and retention before carrying or moving equipment.
+**4. Put the working base to use.** The receiving base can be attached to a suitable clean surface with an appropriate **removable, surface-compatible adhesive**. For example, I attached one to the back of my MacBook so I can mount an SSD or a 4G modem using a **matching studded OSSMI accessory adapter**. The universal base alone does not attach an unmodified SSD: the accessory also needs a studded mating piece. You can [generate an adapter using Python and OpenSCAD](generator/ossmi_adapter.py) or use the [Fusion 360 adapter generator](generator/Fusion360/OSSMI_adapter/). Check adhesive suitability, laptop finish, heat and ventilation, and retention before carrying or moving equipment.
 
 **That's it:** your first prints are already useful mounting bases, and choosing the best-fitting one also helps identify a working print fit for your printer and material. This is a practical fit check, **not a guarantee** of compatibility on every printer or a safety/load rating. For M3 heat-set inserts, follow the separate [OSSMI-S guide](docs/calibration/fdm/CALIBRATION_FDM_OSSMI_S.md).
 
-## Advanced — generate custom pads with Python and OpenSCAD
+> **Note:** Ready-to-print universal **host bases** are included. A ready-to-print universal **studded adapter STL** is not yet included; generate one using either method below. The Fusion 360 scripts are experimental and have not yet been independently validated across Fusion installations and printers.
+
+## Generate custom mounting plates
+
+There are now two ways to create custom-sized OSSMI parts:
+
+| Workflow | Best for | Requirements |
+|---|---|---|
+| [Autodesk Fusion 360 scripts](generator/Fusion360/) | Designing and modifying OSSMI parts in a CAD workflow | Autodesk Fusion 360 |
+| [Python + OpenSCAD generators](generator/) | Scripted generation and command-line STL export | Python 3 + OpenSCAD |
+
+Both approaches generate the two sides of the interface: a **host plate** with receiving geometry and an **adapter plate** with studs. The generated geometry is experimental; print a test pair and verify its fit before attaching valuable equipment.
+
+### Option A — Autodesk Fusion 360 (interactive scripts)
+
+Two scripts have been added to [`generator/Fusion360/`](generator/Fusion360/):
+
+- **[OSSMI Host Plate](generator/Fusion360/OSSMI_host/)** — generates a receiving plate with a recessed underside, clutch tubes and through-holes. The dialog exposes grid dimensions, skin and wall thicknesses, tube diameters and edge allowance.
+- **[OSSMI Adapter Plate](generator/Fusion360/OSSMI_adapter/)** — generates a matching studded plate. The dialog exposes grid dimensions, base thickness, stud diameter, stud height and edge reduction.
+
+**Install and run:**
+
+1. Download or clone this repository.
+2. Open **Fusion 360 → Utilities → Add-Ins → Scripts and Add-Ins**.
+3. Use **+** to add each script directory (`OSSMI_host` and `OSSMI_adapter`) from your device, or copy the entire directories into Fusion's Scripts folder.
+4. Open a new design, select **OSSMI Host Plate** or **OSSMI Adapter Plate**, then click **Run**.
+5. Enter your dimensions in the dialog (displayed in millimeters), create the body, then inspect and export the resulting part as needed.
+
+See the [full installation guide](generator/Fusion360/hoto_install.md) for the documented folder locations on Windows and macOS and further notes.
+
+**Current script defaults:** the grid pitch is **8 mm**. The host plate is **3 mm** thick, with default tube outside/inside diameters of **6.51/4.4 mm**. The adapter defaults to **0.8 mm** base thickness and studs of **Ø4.8 × 1.8 mm**. These parameters are adjustable in the scripts' dialogs and are **experimental starting values**, not guaranteed cross-printer tolerances.
+
+The scripts add new bodies to the active design; running them again does not replace an existing body. Start with an empty design if you want one isolated plate. **Fusion 360 runtime validation is still needed**; inspect the resulting geometry before printing.
+
+### Option B — Python and OpenSCAD (command line)
 
 You'll need Python 3 and [OpenSCAD](https://openscad.org/) to render or export the generated models. The Python scripts themselves use only the standard library.
 
@@ -70,7 +104,7 @@ These examples are **ideas, not finished OSSMI products or validated application
 
 ## Project status
 
-**OSSMI v0.1.5 — public draft.** A physical Lenovo Y700 prototype and two Python → OpenSCAD generators exist. Canonical fit tolerances, M3 anchor-coordinate profiles, independent cross-printer tests and performance ratings are **not yet established**. The design is **not a safety-rated or certified mounting system**.
+**OSSMI v0.1.5 — public draft.** A physical Lenovo Y700 prototype, four ready-to-print universal host-base variants, two Python → OpenSCAD generators, and two experimental Autodesk Fusion 360 scripts are available. A ready-to-print universal studded adapter STL, independently validated Fusion 360 workflows, canonical fit tolerances, M3 anchor-coordinate profiles, independent cross-printer tests and performance ratings are **not yet established**. The design is **not a safety-rated or certified mounting system**.
 
 ## Join the project
 
@@ -85,7 +119,8 @@ Print a test pad, design a new bracket, share the editable source and print sett
 - [OSSMI-S calibration — M3 heat-set inserts and fixed 8 mm grid](docs/calibration/fdm/CALIBRATION_FDM_OSSMI_S.md)
 - [CERN Open Hardware Licence — Weakly Reciprocal 2.0](LICENSE) — applies to OSSMI reference hardware sources explicitly released under it.
 - [Ready-to-print universal bases (four fit variants)](cad/examples/universal-base/)
-- [Python pad generators](generator/) — software licensing is being clarified separately; the hardware license alone should not be assumed to license all scripts.
+- [Autodesk Fusion 360 host and adapter generators](generator/Fusion360/) and [installation guide](generator/Fusion360/hoto_install.md)
+- [Python + OpenSCAD pad generators](generator/) — software licensing is being clarified separately; the hardware license alone should not be assumed to license all scripts.
 
 OSSMI is not affiliated with, endorsed by or certified by the LEGO Group.
 

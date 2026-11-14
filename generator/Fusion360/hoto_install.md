@@ -18,7 +18,7 @@ Each script is a folder. The folder, the `.py` file and the `.manifest` file mus
 
 1. In Fusion, open **UTILITIES > Add-Ins > Scripts and Add-Ins**.
 2. Click **+** and choose **Script or add-in from device**.
-3. Select the script folder (e.g. `ossmi_host`). Fusion remembers it and adds it to the list.
+3. Select the script folder (e.g. `OSSMI_host`). Fusion remembers it and adds it to the list.
 
 **Option B: copy to the default Scripts folder**
 
